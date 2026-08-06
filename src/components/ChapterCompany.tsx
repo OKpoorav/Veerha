@@ -13,7 +13,7 @@ type Dept = {
 };
 
 const DEPTS: Dept[] = [
-  { name: "Sales", color: "#A78BFA", x: 5, y: 8, w: 40, h: 38, live: "Vera is qualifying 12 leads" },
+  { name: "Sales", color: "#A78BFA", x: 5, y: 8, w: 40, h: 38, live: "Veerha is qualifying 12 leads" },
   { name: "Marketing", color: "#F0ABFC", x: 55, y: 8, w: 40, h: 38, live: "Kai launched 3 campaigns" },
   { name: "Support", color: "#C4B5FD", x: 5, y: 54, w: 28, h: 38, live: "Aria resolved 89 tickets today" },
   { name: "Operations", color: "#7C3AED", x: 38, y: 54, w: 28, h: 38, live: "Nero synced 47 events" },

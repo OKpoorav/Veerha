@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "motion/react";
 import { EMPLOYEES, type Employee } from "@/lib/employees";
 
@@ -131,7 +132,7 @@ function FeaturedEmployee({ e }: { e: Employee }) {
           href="#hire"
           className="mt-6 inline-flex items-center gap-2 self-start rounded-full bg-white text-black px-5 py-3 text-sm font-medium hover:bg-white/90 transition"
         >
-          Hire Vera
+          Hire Veerha
           <span aria-hidden>→</span>
         </a>
       </div>
@@ -148,15 +149,22 @@ function FeaturedEmployee({ e }: { e: Employee }) {
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2.5">
               <div
-                className="w-11 h-11 rounded-full flex items-center justify-center font-medium text-lg"
+                className="relative w-11 h-11 rounded-full flex items-center justify-center overflow-hidden"
                 style={{
-                  background: `linear-gradient(135deg, ${e.color}, #4C1D95)`,
+                  background: `linear-gradient(135deg, ${e.color}22, #4C1D9522)`,
+                  boxShadow: `0 0 20px -4px ${e.color}55`,
                 }}
               >
-                V
+                <Image
+                  src="/veerha-logo.png"
+                  alt="Veerha"
+                  width={36}
+                  height={36}
+                  className="object-contain"
+                />
               </div>
               <div>
-                <div className="text-sm font-medium">Vera</div>
+                <div className="text-sm font-medium">Veerha</div>
                 <div className="text-[11px] text-white/50">AI Sales Executive</div>
               </div>
             </div>
