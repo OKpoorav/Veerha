@@ -13,14 +13,14 @@ type Orbit = {
 };
 
 const ORBITS: Orbit[] = [
-  { label: "Sales", role: "Executive", color: "#A78BFA", angle: -70, ring: 0, status: "live" },
-  { label: "Support", role: "Executive", color: "#C4B5FD", angle: 20, ring: 0, status: "soon" },
-  { label: "Voice", role: "Executive", color: "#A5B4FC", angle: 110, ring: 0, status: "soon" },
-  { label: "Marketing", role: "Executive", color: "#F0ABFC", angle: -160, ring: 0, status: "soon" },
-  { label: "Operations", role: "Executive", color: "#7C3AED", angle: -20, ring: 1, status: "soon" },
-  { label: "Finance", role: "Executive", color: "#F5D0FE", angle: 70, ring: 1, status: "soon" },
-  { label: "Recruitment", role: "Executive", color: "#DDD6FE", angle: 160, ring: 1, status: "soon" },
-  { label: "Knowledge", role: "Executive", color: "#EDE9FE", angle: -115, ring: 1, status: "soon" },
+  // Inner ring — Sales live, others coming next
+  { label: "Sales", role: "Executive", color: "#A78BFA", angle: -90, ring: 0, status: "live" },
+  { label: "Support", role: "Executive", color: "#C4B5FD", angle: 30, ring: 0, status: "soon" },
+  { label: "Marketing", role: "Executive", color: "#F0ABFC", angle: 150, ring: 0, status: "soon" },
+  // Outer ring — three roadmap agents, evenly spread
+  { label: "Operations", role: "Executive", color: "#7C3AED", angle: -30, ring: 1, status: "soon" },
+  { label: "Finance", role: "Executive", color: "#F5D0FE", angle: 90, ring: 1, status: "soon" },
+  { label: "Recruitment", role: "Executive", color: "#DDD6FE", angle: -150, ring: 1, status: "soon" },
 ];
 
 export default function OrbitingEmployees() {

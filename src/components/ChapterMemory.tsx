@@ -7,9 +7,9 @@ const CONVOS = [
   { from: "Sales", to: "Support", text: "Client prefers WhatsApp over email", color: "#A78BFA" },
   { from: "Support", to: "Ops", text: "Refund policy → 7 days for property deposits", color: "#C4B5FD" },
   { from: "Marketing", to: "Sales", text: "Instagram creatives outperform ads 3.2x", color: "#F0ABFC" },
-  { from: "Voice", to: "Sales", text: "Ali always calls back after 6 PM", color: "#A5B4FC" },
+  { from: "Calls", to: "Sales", text: "Ali always calls back after 6 PM", color: "#A78BFA" },
   { from: "Ops", to: "Finance", text: "Emaar approves invoices in 48h", color: "#7C3AED" },
-  { from: "Knowledge", to: "All", text: "New pricing sheet — Q3 2026", color: "#DDD6FE" },
+  { from: "Brain", to: "All", text: "New pricing sheet — indexed and available", color: "#DDD6FE" },
 ];
 
 export default function ChapterMemory() {
