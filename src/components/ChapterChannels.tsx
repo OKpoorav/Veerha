@@ -74,13 +74,10 @@ const rowY = (i: number, n: number) => {
 
 export default function ChapterChannels() {
   return (
-    <section className="section relative overflow-hidden">
-      <div className="container-x">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <p className="text-[11px] uppercase tracking-[0.28em] text-violet-300/70 mb-5">
-            Chapter Six — Works Everywhere
-          </p>
-          <h2 className="h-editorial text-[clamp(2.5rem,5.5vw,4.5rem)]">
+    <section className="chapter relative overflow-hidden mesh-ambient">
+      <div className="container-wide">
+        <div className="max-w-3xl mx-auto text-center mb-20">
+          <h2 className="h-editorial text-[clamp(2.75rem,5.4vw,4.75rem)]">
             Every channel.
             <br />
             <span className="text-gradient">One intelligence.</span>
@@ -242,7 +239,7 @@ export default function ChapterChannels() {
                   className="absolute -translate-y-1/2 flex items-center gap-3 pointer-events-auto"
                   style={{ top: `${yPct}%`, left: `${xPct}%` }}
                 >
-                  <div className="w-11 h-11 rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur flex items-center justify-center text-white/80 shadow-[0_4px_20px_-4px_rgba(139,92,246,0.25)]">
+                  <div className="w-11 h-11 rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur flex items-center justify-center text-white/80 shadow-[0_4px_20px_-4px_rgba(139,92,246,0.25)] transition-all duration-500 hover:scale-110 hover:border-white/35">
                     <c.Icon width={18} height={18} strokeWidth={1.6} />
                   </div>
                   <span className="text-[13px] text-white/70 hidden sm:block">

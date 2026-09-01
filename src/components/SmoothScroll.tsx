@@ -2,7 +2,12 @@
 
 import { useEffect } from "react";
 import Lenis from "lenis";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 
+/**
+ * Lenis drives the scroll; ScrollTrigger must read from it rather than the
+ * native scroll position, otherwise every pinned section desyncs.
+ */
 export default function SmoothScroll() {
   useEffect(() => {
     const lenis = new Lenis({
@@ -11,15 +16,17 @@ export default function SmoothScroll() {
       smoothWheel: true,
     });
 
-    let rafId = 0;
-    function raf(time: number) {
-      lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    }
-    rafId = requestAnimationFrame(raf);
+    lenis.on("scroll", ScrollTrigger.update);
+
+    // gsap.ticker reports seconds, lenis.raf expects milliseconds.
+    const raf = (time: number) => lenis.raf(time * 1000);
+    gsap.ticker.add(raf);
+    gsap.ticker.lagSmoothing(0);
+
+    ScrollTrigger.refresh();
 
     return () => {
-      cancelAnimationFrame(rafId);
+      gsap.ticker.remove(raf);
       lenis.destroy();
     };
   }, []);

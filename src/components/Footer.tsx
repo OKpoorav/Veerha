@@ -6,8 +6,9 @@ const COLS = [
     heading: "Product",
     links: [
       { label: "The Brain", href: "#brain" },
-      { label: "AI Employees", href: "#employees" },
+      { label: "AI Employees", href: "#workforce" },
       { label: "Journey", href: "#journey" },
+      { label: "AI Studio", href: "#studio" },
       { label: "Pricing", href: "#" },
     ],
   },
@@ -43,20 +44,20 @@ const COLS = [
 export default function Footer() {
   return (
     <footer className="border-t border-white/5 bg-[#050308]">
-      <div className="container-x py-20">
+      <div className="container-wide py-24">
         <div className="grid lg:grid-cols-[minmax(0,1.4fr)_minmax(0,2fr)] gap-16">
           <div>
             <Link href="/" className="flex items-center gap-2.5">
-              <div className="relative w-10 h-10">
+              <div className="relative w-14 h-14">
                 <Image
                   src="/veerha-logo.png"
                   alt="Veerha"
                   fill
-                  sizes="40px"
+                  sizes="56px"
                   className="object-contain"
                 />
               </div>
-              <span className="text-lg font-medium">Veerha</span>
+              <span className="text-2xl font-medium">Veerha</span>
             </Link>
             <p className="mt-6 h-serif text-2xl text-white/60 max-w-sm leading-snug">
               Stop hiring software.
@@ -79,7 +80,7 @@ export default function Footer() {
                     <li key={l.label}>
                       <Link
                         href={l.href}
-                        className="text-sm text-white/70 hover:text-white transition"
+                        className="text-sm text-white/70 hover:text-white transition-colors duration-300"
                       >
                         {l.label}
                       </Link>

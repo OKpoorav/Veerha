@@ -6,57 +6,80 @@ import NeuralField from "./NeuralField";
 
 export default function FinalCTA() {
   return (
-    <section id="hire" className="relative overflow-hidden pt-40 pb-32">
-      <div className="absolute inset-0 mask-fade-radial opacity-90">
+    <section
+      id="hire"
+      className="relative overflow-hidden pt-40 pb-40 grain"
+    >
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-cover bg-center plate opacity-[0.14]"
+        style={{
+          backgroundImage:
+            "url(https://picsum.photos/seed/veerha-horizon/1920/1080)",
+        }}
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(70% 60% at 50% 45%, rgba(8,6,15,0.4) 0%, rgba(8,6,15,0.92) 62%, #08060F 90%)",
+        }}
+      />
+      <div className="absolute inset-0 mask-fade-radial opacity-80">
         <NeuralField nodeCount={70} intensity={1.4} />
       </div>
-      <div className="absolute inset-0 radial-fade opacity-80" />
 
-      <div className="container-x relative">
-        <div className="flex justify-center mb-16">
+      <div className="container-wide relative">
+        <div className="mb-16 flex justify-center">
           <motion.div
             initial={{ scale: 0.85, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           >
-            <BrainCore size={380} />
+            <BrainCore size={340} />
           </motion.div>
         </div>
 
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="mx-auto max-w-5xl text-center">
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.9 }}
-            className="h-editorial text-[clamp(3rem,8vw,7rem)]"
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            className="h-editorial track-xl text-[clamp(3rem,7vw,6.5rem)]"
           >
-            Build your
+            Build your AI workforce.
             <br />
-            <span className="text-gradient">AI workforce.</span>
-            <br />
-            <span className="h-serif text-white/70">Not your software stack.</span>
+            <span className="h-serif text-white/60">
+              Not your software stack.
+            </span>
           </motion.h2>
 
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="mt-14 flex flex-wrap items-center justify-center gap-3"
+            transition={{ duration: 0.8, delay: 0.25 }}
+            className="mt-14 flex flex-col items-center justify-center gap-3 sm:flex-row"
           >
             <a
               href="#start"
-              className="group inline-flex items-center gap-2 rounded-full bg-white text-black px-8 py-4 text-base font-medium hover:bg-white/90 transition"
+              className="press group inline-flex items-center gap-2 rounded-full bg-white px-9 py-4 text-base font-medium text-black transition-colors duration-300 hover:bg-white/90"
             >
               Start building
-              <span className="transition-transform group-hover:translate-x-1">→</span>
+              <span
+                aria-hidden
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              >
+                &rarr;
+              </span>
             </a>
             <a
               href="#demo"
               id="demo"
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 backdrop-blur px-8 py-4 text-base text-white/90 hover:bg-white/10 transition"
+              className="press inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-9 py-4 text-base text-white backdrop-blur-xl transition-colors duration-300 hover:bg-white/[0.12]"
             >
               Book a demo
             </a>
@@ -66,8 +89,8 @@ export default function FinalCTA() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="mt-10 text-white/40 text-sm"
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="mt-10 text-sm text-white/40"
           >
             5 minutes to set up. Live workforce by tomorrow.
           </motion.p>

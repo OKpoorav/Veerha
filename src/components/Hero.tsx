@@ -1,158 +1,96 @@
-"use client";
-
-import { motion } from "motion/react";
 import OrbitingEmployees from "./OrbitingEmployees";
 import NeuralField from "./NeuralField";
 
+/**
+ * Server component on purpose. The entry animation is pure CSS (.rise/.bloom)
+ * so the fold renders even if the client bundle never arrives.
+ */
 export default function Hero() {
   return (
-    <section className="relative min-h-screen pt-40 pb-24 overflow-hidden">
-      {/* Ambient field */}
-      <div className="absolute inset-0 mask-fade-radial opacity-70">
+    <section className="relative min-h-screen pt-44 pb-28 overflow-hidden grain">
+      {/* Full-bleed plate — treated so it reads as art direction, not stock */}
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-cover bg-center plate opacity-[0.22]"
+        style={{
+          backgroundImage:
+            "url(https://picsum.photos/seed/veerha-midnight-city/1920/1080)",
+        }}
+      />
+      {/* Dark radial wash so the type always wins */}
+      <div
+        aria-hidden
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(70% 60% at 50% 42%, rgba(8,6,15,0.35) 0%, rgba(8,6,15,0.88) 55%, #08060F 85%)",
+        }}
+      />
+
+      <div className="absolute inset-0 mask-fade-radial opacity-60">
         <NeuralField nodeCount={54} />
       </div>
-      <div className="absolute inset-0 grid-bg opacity-40 mask-fade-radial" />
-      <div className="absolute inset-0 radial-fade opacity-60" />
+      <div className="absolute inset-0 grid-bg opacity-25 mask-fade-radial" />
 
-      <div className="container-x relative">
-        <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] gap-8 lg:gap-16 items-center">
-          {/* Left: editorial headline */}
-          <div className="relative z-10 max-w-xl">
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[11px] uppercase tracking-[0.18em] text-white/70 mb-8"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              AI Sales Executive · Available now
-            </motion.div>
+      <div className="container-wide relative">
+        <div className="flex flex-col items-center text-center">
+          <h1 className="rise h-editorial track-xl max-w-6xl text-[clamp(3rem,5.6vw,5.5rem)]">
+            Hire your first
+            <br />
+            <span className="text-gradient">AI employee.</span>
+          </h1>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-              className="h-editorial text-[clamp(3rem,6.5vw,5.75rem)]"
-            >
-              Hire your first
-              <br />
-              <span className="text-gradient">AI employee.</span>
-            </motion.h1>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.35 }}
-              className="mt-6 space-y-2 text-white/50 text-lg font-light"
-            >
-              <p>Not another chatbot.</p>
-              <p>Not another CRM.</p>
-              <p className="text-white/80">
-                A real AI Sales Executive. Working 24 hours a day.
-              </p>
-            </motion.div>
-
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="mt-8 text-white/60 text-[15px] leading-relaxed max-w-md"
-            >
-              Veerha starts with Sales — captures leads across every channel,
-              qualifies them instantly, books meetings, and follows up. Support,
-              Marketing, Operations and the rest of the workforce are on the way.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.65 }}
-              className="mt-10 flex flex-wrap items-center gap-3"
-            >
-              <a
-                href="#hire"
-                className="group inline-flex items-center gap-2 rounded-full bg-white text-black px-6 py-3.5 text-sm font-medium hover:bg-white/90 transition"
-              >
-                Hire your first AI employee
-                <span className="transition-transform group-hover:translate-x-0.5">→</span>
-              </a>
-              <a
-                href="#watch"
-                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 backdrop-blur px-6 py-3.5 text-sm text-white/90 hover:bg-white/10 transition"
-              >
-                <PlayGlyph />
-                Watch your AI workforce
-              </a>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.9 }}
-              className="mt-10 flex items-center gap-6 text-[12px] text-white/40"
-            >
-              <div className="flex items-center gap-2">
-                <Check /> No credit card
-              </div>
-              <div className="flex items-center gap-2">
-                <Check /> Setup in 5 minutes
-              </div>
-              <div className="flex items-center gap-2">
-                <Check /> Works 24/7
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Right: orbiting brain */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.92 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
-            className="relative"
+          <p
+            className="rise mt-8 max-w-2xl text-lg sm:text-xl font-light leading-relaxed text-white/55"
+            style={{ animationDelay: "0.15s" }}
           >
-            <OrbitingEmployees />
-          </motion.div>
+            Not another chatbot. Not another CRM. A real AI Sales Executive that
+            captures leads across every channel, qualifies them instantly, books
+            the meeting and follows up &mdash;{" "}
+            <span className="text-white/85">24 hours a day.</span>
+          </p>
+
+          <div
+            className="rise mt-12 flex flex-col sm:flex-row items-center gap-3"
+            style={{ animationDelay: "0.3s" }}
+          >
+            <a
+              href="#hire"
+              className="press group inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-[15px] font-medium text-black transition-colors duration-300 hover:bg-white/90"
+            >
+              Hire your first AI employee
+              <span
+                aria-hidden
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              >
+                &rarr;
+              </span>
+            </a>
+            <a
+              href="#workforce"
+              className="press group inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/[0.06] px-8 py-4 text-[15px] text-white backdrop-blur-xl transition-colors duration-300 hover:bg-white/[0.12]"
+            >
+              <PlayGlyph />
+              Watch your AI workforce
+            </a>
+          </div>
         </div>
 
-        {/* Bottom logo strip */}
-        <div className="mt-24 pt-10 border-t border-white/5">
-          <p className="text-center text-[11px] uppercase tracking-[0.25em] text-white/30 mb-6">
-            Powering the next generation of businesses
-          </p>
-          <div className="overflow-hidden mask-fade-y" style={{ maskImage: "linear-gradient(90deg, transparent, black 15%, black 85%, transparent)", WebkitMaskImage: "linear-gradient(90deg, transparent, black 15%, black 85%, transparent)" }}>
-            <div className="flex gap-16 animate-marquee whitespace-nowrap">
-              {[...LOGOS, ...LOGOS].map((n, i) => (
-                <span
-                  key={i}
-                  className="text-white/30 text-xl font-serif italic tracking-wide"
-                >
-                  {n}
-                </span>
-              ))}
-            </div>
-          </div>
+        {/* Signature visual, anchored below the fold line */}
+        <div
+          className="bloom relative mx-auto mt-20 w-full max-w-3xl"
+          style={{ animationDelay: "0.4s" }}
+        >
+          <OrbitingEmployees />
         </div>
       </div>
     </section>
   );
 }
 
-const LOGOS = [
-  "DAMAC", "EMAAR", "Betterhomes", "dubizzle", "Policybazaar",
-  "Nobroker", "Sobha", "Meraas", "Azizi", "Danube",
-];
-
-function Check() {
-  return (
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
-      <path d="M5 12l4 4L19 6" stroke="#A78BFA" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
 function PlayGlyph() {
   return (
-    <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
       <path d="M8 5v14l11-7z" />
     </svg>
   );

@@ -26,18 +26,15 @@ export default function ChapterBrain() {
   const r = 380;
 
   return (
-    <section id="brain" className="section relative overflow-hidden">
+    <section id="brain" className="chapter relative overflow-hidden grain">
       <div className="absolute inset-0 opacity-30 mask-fade-y">
         <NeuralField nodeCount={38} />
       </div>
       <div className="absolute inset-0 grid-bg opacity-20 mask-fade-y" />
 
-      <div className="container-x relative">
-        <div className="max-w-2xl mx-auto text-center mb-16">
-          <p className="text-[11px] uppercase tracking-[0.28em] text-violet-300/70 mb-5">
-            Chapter One — The Brain
-          </p>
-          <h2 className="h-editorial text-[clamp(2.5rem,5.5vw,4.5rem)]">
+      <div className="container-wide relative">
+        <div className="max-w-3xl mx-auto text-center mb-20">
+          <h2 className="h-editorial text-[clamp(2.75rem,5.4vw,4.75rem)]">
             One brain.
             <br />
             <span className="text-gradient">Every conversation.</span>
@@ -117,7 +114,7 @@ export default function ChapterBrain() {
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ delay: 0.05 * i, duration: 0.5 }}
               >
-                <div className="rounded-xl border border-white/10 bg-[#0D0A1A]/80 backdrop-blur px-3 py-1.5 text-[12px] whitespace-nowrap">
+                <div className="rounded-xl border border-white/10 bg-[#0D0A1A]/80 backdrop-blur px-3 py-1.5 text-[12px] whitespace-nowrap transition-all duration-500 hover:border-white/35 hover:scale-105">
                   {c.label}
                 </div>
               </motion.div>

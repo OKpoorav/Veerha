@@ -1,7 +1,8 @@
 "use client";
 
-import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "@/lib/gsap";
 
 type Metric = {
   label: string;
@@ -11,72 +12,118 @@ type Metric = {
   arrow: "up" | "down";
   quote: string;
   decimals?: number;
+  seed: string;
 };
 
 const METRICS: Metric[] = [
-  { label: "Response time", value: 3, suffix: "s", arrow: "down", quote: "From hours to seconds." },
-  { label: "Meetings booked", value: 4.2, suffix: "x", arrow: "up", quote: "Every lead. Every hour.", decimals: 1 },
-  { label: "Conversion rate", value: 40, suffix: "%", arrow: "up", quote: "Because nothing goes cold." },
-  { label: "Manual work", value: 72, suffix: "%", arrow: "down", quote: "Your team, on the interesting parts." },
-  { label: "Revenue influenced", value: 1.6, prefix: "$", suffix: "M", arrow: "up", quote: "Per team. Per month.", decimals: 1 },
+  { label: "Response time", value: 3, suffix: "s", arrow: "down", quote: "From hours to seconds.", seed: "veerha-speed" },
+  { label: "Meetings booked", value: 4.2, suffix: "x", arrow: "up", quote: "Every lead. Every hour.", decimals: 1, seed: "veerha-calendar" },
+  { label: "Conversion rate", value: 40, suffix: "%", arrow: "up", quote: "Because nothing goes cold.", seed: "veerha-growth" },
+  { label: "Manual work", value: 72, suffix: "%", arrow: "down", quote: "Your team, on the interesting parts.", seed: "veerha-team" },
+  { label: "Revenue influenced", value: 1.6, prefix: "$", suffix: "M", arrow: "up", quote: "Per team. Per month.", decimals: 1, seed: "veerha-revenue" },
 ];
 
+/**
+ * Card stack: every metric card sticks at a slightly lower offset than the
+ * one before it, so the deck physically builds up as the reader scrolls.
+ * GSAP scrubs scale and brightness on the buried cards.
+ */
 export default function ChapterOutcomes() {
+  const section = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      const cards = gsap.utils.toArray<HTMLElement>("[data-card]", section.current);
+
+      cards.forEach((card, i) => {
+        if (i === cards.length - 1) return;
+        gsap.to(card, {
+          scale: 0.9,
+          filter: "brightness(0.45)",
+          ease: "none",
+          scrollTrigger: {
+            trigger: cards[i + 1],
+            start: "top 92%",
+            end: "top 42%",
+            scrub: true,
+          },
+        });
+      });
+    },
+    { scope: section }
+  );
+
   return (
-    <section id="outcomes" className="section relative overflow-hidden">
-      <div className="container-x">
-        <div className="max-w-2xl mb-20">
-          <p className="text-[11px] uppercase tracking-[0.28em] text-violet-300/70 mb-5">
-            Chapter Seven — Outcomes
-          </p>
-          <h2 className="h-editorial text-[clamp(2.5rem,5.5vw,4.5rem)]">
+    <section
+      id="outcomes"
+      ref={section}
+      className="chapter relative overflow-hidden mesh-ambient"
+    >
+      <div className="container-wide relative">
+        <div className="mb-20 max-w-3xl">
+          <h2 className="h-editorial text-[clamp(2.75rem,5.4vw,4.75rem)]">
             <span className="h-serif text-white/70">The numbers</span>
             <br />
             <span className="text-gradient">that matter.</span>
           </h2>
         </div>
 
-        <div className="space-y-16 sm:space-y-24">
+        <div className="relative">
           {METRICS.map((m, i) => (
-            <MetricRow key={m.label} m={m} reverse={i % 2 === 1} index={i} />
+            <article
+              key={m.label}
+              data-card
+              className="group sticky mb-6 overflow-hidden rounded-[32px] border border-white/[0.09] bg-[#0C0918]/90 backdrop-blur-xl"
+              style={{ top: `${112 + i * 26}px`, willChange: "transform" }}
+            >
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 bg-cover bg-center plate opacity-[0.14] transition-transform duration-700 ease-out group-hover:scale-105"
+                style={{
+                  backgroundImage: `url(https://picsum.photos/seed/${m.seed}/1600/900)`,
+                }}
+              />
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(105deg, rgba(12,9,24,0.96) 40%, rgba(12,9,24,0.55) 100%)",
+                }}
+              />
+
+              <div className="relative grid items-end gap-8 p-8 md:grid-cols-2 md:p-12">
+                <div>
+                  <div className="mb-4 text-[11px] uppercase tracking-[0.24em] text-white/40">
+                    {m.label}
+                  </div>
+                  <div className="flex items-baseline gap-4">
+                    <ArrowIcon dir={m.arrow} />
+                    <div className="h-editorial track-xl tabular text-[clamp(3.5rem,10vw,8rem)]">
+                      {m.prefix && (
+                        <span className="align-top text-[0.55em] text-white/60">
+                          {m.prefix}
+                        </span>
+                      )}
+                      <Counter value={m.value} decimals={m.decimals} />
+                      {m.suffix && (
+                        <span className="ml-1 align-top text-[0.4em] text-white/50">
+                          {m.suffix}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                <p className="h-serif max-w-md text-2xl text-white/80 sm:text-3xl md:ml-auto md:text-right">
+                  &ldquo;{m.quote}&rdquo;
+                </p>
+              </div>
+            </article>
           ))}
         </div>
       </div>
     </section>
-  );
-}
-
-function MetricRow({ m, reverse, index }: { m: Metric; reverse: boolean; index: number }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.4 }}
-      transition={{ duration: 0.8 }}
-      className={`grid md:grid-cols-2 gap-8 items-end border-b border-white/5 pb-16 ${
-        reverse ? "md:[&>*:first-child]:order-2" : ""
-      }`}
-    >
-      <div>
-        <div className="text-[11px] uppercase tracking-[0.22em] text-white/40 mb-3">
-          {String(index + 1).padStart(2, "0")} — {m.label}
-        </div>
-        <div className="flex items-baseline gap-3">
-          <ArrowIcon dir={m.arrow} />
-          <div className="h-editorial text-[clamp(4rem,12vw,10rem)] leading-none tracking-tighter">
-            {m.prefix && <span className="text-white/60 text-[0.55em] align-top">{m.prefix}</span>}
-            <Counter value={m.value} decimals={m.decimals} />
-            {m.suffix && <span className="text-white/50 text-[0.4em] align-top ml-1">{m.suffix}</span>}
-          </div>
-        </div>
-      </div>
-
-      <div className={`${reverse ? "md:text-right" : ""}`}>
-        <p className="h-serif text-2xl sm:text-3xl text-white/80 max-w-md md:ml-auto">
-          "{m.quote}"
-        </p>
-      </div>
-    </motion.div>
   );
 }
 
@@ -111,7 +158,7 @@ function Counter({ value, decimals = 0 }: { value: number; decimals?: number }) 
   }, [value]);
 
   return (
-    <span ref={ref}>
+    <span ref={ref} className="tabular">
       {decimals ? display.toFixed(decimals) : Math.round(display).toLocaleString()}
     </span>
   );
@@ -120,8 +167,10 @@ function Counter({ value, decimals = 0 }: { value: number; decimals?: number }) 
 function ArrowIcon({ dir }: { dir: "up" | "down" }) {
   return (
     <span
-      className={`inline-flex w-10 h-10 rounded-full items-center justify-center text-lg ${
-        dir === "up" ? "text-emerald-400 bg-emerald-400/10" : "text-orange-400 bg-orange-400/10"
+      className={`inline-flex h-11 w-11 items-center justify-center rounded-full text-lg ${
+        dir === "up"
+          ? "bg-emerald-400/10 text-emerald-400"
+          : "bg-orange-400/10 text-orange-400"
       }`}
       aria-hidden
     >
